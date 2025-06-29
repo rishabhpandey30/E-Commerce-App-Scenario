@@ -1,0 +1,32 @@
+
+In React, data such as a product's name and price is passed from a parent component to a child component like ProductCard using props. This allows the ProductCard to be reusable for different products. The parent component simply includes the child component and passes values as attributes. Inside the ProductCard, these values are accessed using the props object or directly through destructuring in the function parameters.
+  App.js (Parent Component)
+import React from 'react';
+import ProductCard from './ProductCard';
+
+function App() {
+  const product = { name: 'Wireless Mouse', price: 999 };
+
+  return (
+    <div>
+      <ProductCard name={product.name} price={product.price} />
+    </div>
+  );
+}
+
+export default App;
+
+ProductCard.js (Child Component)
+
+import React from 'react';
+
+function ProductCard({ name, price }) {
+  return (
+    <div>
+      <h2>{name}</h2>
+      <p>₹{price}</p>
+    </div>
+  );
+}
+
+export default ProductCard;
