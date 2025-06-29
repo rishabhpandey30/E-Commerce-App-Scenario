@@ -1,0 +1,34 @@
+Use React Router and authentication logic:
+Example PrivateRoute.js
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+
+function PrivateRoute({ children }) {
+  const isLoggedIn = localStorage.getItem('auth'); // Or use auth context
+
+  return isLoggedIn ? children : <Navigate to="/login" />;
+}
+
+export default PrivateRoute;
+
+
+Use it in your router config
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
+import Checkout from './Checkout';
+import Login from './Login';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/checkout" element={
+          <PrivateRoute>
+            <Checkout />
+          </PrivateRoute>
+        } />
+      </Routes>
+    </BrowserRouter>
+  );
+}
