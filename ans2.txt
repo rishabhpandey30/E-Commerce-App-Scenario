@@ -1,0 +1,21 @@
+import React, { useState } from 'react';
+
+function ProductCard({ name, price }) {
+  const [liked, setLiked] = useState(false);
+
+  const toggleLike = () => {
+    setLiked(!liked);
+  };
+
+  return (
+    <div>
+      <h2>{name}</h2>
+      <p>₹{price}</p>
+      <button onClick={toggleLike}>
+        {liked ? 'Liked ❤️' : 'Like 🤍'}
+      </button>
+    </div>
+  );
+}
+
+export default ProductCard;
