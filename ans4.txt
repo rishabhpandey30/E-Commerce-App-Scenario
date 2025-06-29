@@ -1,0 +1,47 @@
+1. Create Theme Context (ThemeContext.js)
+
+import React, { createContext, useState } from 'react';
+
+export const ThemeContext = createContext();
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+
+2. Use in any component (e.g. App.js)
+import React, { useContext } from 'react';
+import { ThemeContext } from './ThemeContext';
+
+function App() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
+  return (
+    <div className={theme}>
+      <button onClick={toggleTheme}>Toggle Theme</button>
+    </div>
+  );
+}
+
+
+Wrap your app in ThemeProvider in index.js:
+import ReactDOM from 'react-dom';
+import App from './App';
+import { ThemeProvider } from './ThemeContext';
+
+ReactDOM.render(
+  <ThemeProvider>
+    <App />
+  </ThemeProvider>,
+  document.getElementById('root')
+);
